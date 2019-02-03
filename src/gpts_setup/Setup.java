@@ -1,22 +1,12 @@
 /* Gitaş - Obarey Inc 2018 */
 package gpts_setup;
 
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableStringValue;
 import org.json.JSONObject;
 
+public class Setup extends ActionCommon{
 
-public class Setup {
-
-    private StringProperty mStatusProp = new SimpleStringProperty();
     //private String mDebugFilePrefix = ""; // release
     private String mDebugFilePrefix = "C://Users/Jeppe-PC/IdeaProjects/gpts_setup/out/artifacts/gpts_setup_jar/"; // debug
-
-    public ObservableStringValue getStatusProp(){
-        return mStatusProp;
-    }
 
     public void action( String staticDirPrefix, ActionCallback cb ){
 
@@ -118,15 +108,6 @@ public class Setup {
         });
         staticFileGenerationThread.setDaemon(true);
         staticFileGenerationThread.start();
-    }
-
-    private void setStatusProp( String msg ){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                mStatusProp.setValue(msg);
-            }
-        });
     }
 
 }

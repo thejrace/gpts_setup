@@ -18,6 +18,7 @@ public class Controller implements Initializable {
     @FXML private Button uiUninstallBtn;
     @FXML private Label uiDiagNotf;
     @FXML private Label uiInstallNotf;
+    @FXML private Label uiUninstallNotf;
 
     @Override
     public void initialize(URL url, ResourceBundle rb ){
@@ -26,6 +27,7 @@ public class Controller implements Initializable {
             String staticPrefixDirValue = uiStaticDirPrefixInput.getText();
             if( !staticPrefixDirValue.equals("") ){
                 disableInputs();
+                refreshNotfs();
                 Setup setup = new Setup();
                 uiInstallNotf.textProperty().bind(setup.getStatusProp());
                 setup.action(staticPrefixDirValue, new ActionCallback() {
@@ -45,6 +47,7 @@ public class Controller implements Initializable {
             String staticPrefixDirValue = uiStaticDirPrefixInput.getText();
             if( !staticPrefixDirValue.equals("") ){
                 disableInputs();
+                refreshNotfs();
                 Diagnostic diagnostic = new Diagnostic();
                 uiDiagNotf.textProperty().bind(diagnostic.getStatusProp());
                 diagnostic.action(staticPrefixDirValue, new ActionCallback() {
@@ -60,6 +63,37 @@ public class Controller implements Initializable {
             }
         });
 
+        uiUninstallBtn.setOnMouseClicked( ev -> {
+            String staticPrefixDirValue = uiStaticDirPrefixInput.getText();
+            if( !staticPrefixDirValue.equals("") ){
+                disableInputs();
+                refreshNotfs();
+                Uninstall uninstall = new Uninstall();
+                uiUninstallNotf.textProperty().bind(uninstall.getStatusProp());
+                uninstall.action(staticPrefixDirValue, new ActionCallback() {
+                    @Override
+                    public void success(String msg) {
+                        enableInputs();
+                    }
+                    @Override
+                    public void error(String msg) {
+                        enableInputs();
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void refreshNotfs(){
+        uiUninstallNotf.textProperty().unbind();
+        uiUninstallNotf.setText("");
+
+        uiInstallNotf.textProperty().unbind();
+        uiInstallNotf.setText("");
+
+        uiDiagNotf.textProperty().unbind();
+        uiDiagNotf.setText("");
     }
 
     private void disableInputs(){

@@ -62,6 +62,23 @@ public class Common {
         return false;
     }
 
+    public static boolean deleteDirectory( File directory ) {
+        if( directory.exists() ){
+            File[] files = directory.listFiles();
+            if( files != null ){
+                for(int i = 0; i < files.length; i++) {
+                    if( files[i].isDirectory() ) {
+                        deleteDirectory(files[i]);
+                    }
+                    else {
+                        files[i].delete();
+                    }
+                }
+            }
+        }
+        return(directory.delete());
+    }
+
     public static void copyFile(File source, File dest) {
         FileChannel sourceChannel = null;
         FileChannel destChannel = null;
