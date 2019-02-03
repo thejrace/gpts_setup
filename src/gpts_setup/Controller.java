@@ -1,3 +1,4 @@
+/* Gitaş - Obarey Inc 2018 */
 package gpts_setup;
 
 import javafx.fxml.FXML;
@@ -23,24 +24,56 @@ public class Controller implements Initializable {
 
         uiInstallBtn.setOnMouseClicked( ev -> {
             String staticPrefixDirValue = uiStaticDirPrefixInput.getText();
-            System.out.println(staticPrefixDirValue);
             if( !staticPrefixDirValue.equals("") ){
+                disableInputs();
                 Setup setup = new Setup();
                 uiInstallNotf.textProperty().bind(setup.getStatusProp());
                 setup.action(staticPrefixDirValue, new ActionCallback() {
                     @Override
                     public void success(String msg) {
-
+                        enableInputs();
                     }
-
                     @Override
                     public void error(String msg) {
-
+                        enableInputs();
                     }
                 });
             }
         });
 
+        uiStartDiagBtn.setOnMouseClicked( ev -> {
+            String staticPrefixDirValue = uiStaticDirPrefixInput.getText();
+            if( !staticPrefixDirValue.equals("") ){
+                disableInputs();
+                Diagnostic diagnostic = new Diagnostic();
+                uiDiagNotf.textProperty().bind(diagnostic.getStatusProp());
+                diagnostic.action(staticPrefixDirValue, new ActionCallback() {
+                    @Override
+                    public void success(String msg) {
+                        enableInputs();
+                    }
+                    @Override
+                    public void error(String msg) {
+                        enableInputs();
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void disableInputs(){
+        uiInstallBtn.setDisable(true);
+        uiStartDiagBtn.setDisable(true);
+        uiUninstallBtn.setDisable(true);
+        uiStaticDirPrefixInput.setDisable(true);
+    }
+
+    private void enableInputs(){
+        uiInstallBtn.setDisable(false);
+        uiStartDiagBtn.setDisable(false);
+        uiUninstallBtn.setDisable(false);
+        uiStaticDirPrefixInput.setDisable(false);
     }
 
 }

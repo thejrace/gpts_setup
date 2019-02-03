@@ -1,5 +1,5 @@
+/* Gitaş - Obarey Inc 2018 */
 package gpts_setup;
-
 
 import java.io.FileOutputStream;
 import java.io.IOException;

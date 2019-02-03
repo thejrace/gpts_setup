@@ -1,3 +1,4 @@
+/* Gitaş - Obarey Inc 2018 */
 package gpts_setup;
 
 import javafx.application.Platform;
@@ -6,12 +7,12 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableStringValue;
 import org.json.JSONObject;
 
-import static gpts_setup.Common.createStaticDirectory;
 
 public class Setup {
 
     private StringProperty mStatusProp = new SimpleStringProperty();
-    private String mDebugFilePrefix = "C://Users/Jeppe-PC/IdeaProjects/gpts_setup/out/artifacts/gpts_setup_jar/";
+    //private String mDebugFilePrefix = ""; // release
+    private String mDebugFilePrefix = "C://Users/Jeppe-PC/IdeaProjects/gpts_setup/out/artifacts/gpts_setup_jar/"; // debug
 
     public ObservableStringValue getStatusProp(){
         return mStatusProp;
@@ -37,7 +38,7 @@ public class Setup {
                 FileDownload.downloadFileFromUrl(config.getString("web_service_url") + config.getString("update_helper_url"), Common.STATIC_LOCATION + "gpts_update_helper.jar", new ActionCallback() {
                     @Override
                     public void success(String msg) {
-                        setStatusProp("Yapılandırma dosyaları indirildi!");
+                        setStatusProp("Kurulum başarılı!");
                         cb.success("");
                     }
                     @Override
@@ -76,7 +77,7 @@ public class Setup {
             public void run() {
                 setStatusProp("Program klasörleri oluşturuluyor.");
                 if( !Common.checkDirectory( Common.STATIC_LOCATION ) ){
-                    if( !createStaticDirectory() ){
+                    if( !Common.createStaticDirectory() ){
                         setStatusProp("Static dir oluşturulamadı.");
                         cb.error("");
                         return;
@@ -106,7 +107,7 @@ public class Setup {
                     }
                 }
                 if( !Common.checkFile( Common.STATIC_LOCATION + "gpts_config.json"  ) ){
-                    if( !Common.createFile(  "gpts_config", "{ \"static_dir\" : \""+Common.STATIC_LOCATION+" \" }" ) ){
+                    if( !Common.createFile(  "gpts_config", "{ \"static_dir\" : \""+Common.STATIC_LOCATION+"\" }" ) ){
                         setStatusProp("gpts_config.json oluşturulamadı.");
                         cb.error("");
                         return;
