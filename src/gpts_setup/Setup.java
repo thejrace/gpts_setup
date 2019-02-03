@@ -97,7 +97,8 @@ public class Setup extends ActionCommon{
                     }
                 }
                 if( !Common.checkFile( Common.STATIC_LOCATION + "gpts_config.json"  ) ){
-                    if( !Common.createFile(  "gpts_config", "{ \"static_dir\" : \""+Common.STATIC_LOCATION+"\" }" ) ){
+                    config.put("static_dir", Common.STATIC_LOCATION);
+                    if( !Common.createFile(  "gpts_config", config.toString() ) ){
                         setStatusProp("gpts_config.json oluşturulamadı.");
                         cb.error("");
                         return;
