@@ -5,8 +5,8 @@ import org.json.JSONObject;
 
 public class Setup extends ActionCommon{
 
-    //private String mDebugFilePrefix = ""; // release
-    private String mDebugFilePrefix = "C://Users/Jeppe-PC/IdeaProjects/gpts_setup/out/artifacts/gpts_setup_jar/"; // debug
+    private String mDebugFilePrefix = ""; // release
+    //private String mDebugFilePrefix = "C://Users/Jeppe-PC/IdeaProjects/gpts_setup/out/artifacts/gpts_setup_jar/"; // debug
 
     public void action( String staticDirPrefix, ActionCallback cb ){
 
